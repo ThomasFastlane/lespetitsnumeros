@@ -432,6 +432,19 @@ img,svg,canvas{max-width:100%}
 .toast button{border:0;background:var(--sun);color:var(--pencil);border-radius:999px;padding:9px 14px;font-weight:700;cursor:pointer;white-space:nowrap}
 .toast button[hidden]{display:none}
 
+/* panier */
+.cart-note{background:var(--mint-soft);border-radius:14px;padding:10px 14px;font-size:14px;font-weight:600}
+.lt .cov{display:block;width:100%;height:100%}
+.xsell .btn{padding:10px 14px;font-size:14px;box-shadow:0 3px 0 #0D1435}
+.xsell s{color:var(--ink-2);font-weight:500}
+.go-pay{width:100%}
+.go-pay svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-size:12.5px;color:var(--ink-2);font-weight:600}
+.trust li{display:flex;align-items:center;gap:6px}
+.trust li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--mint,#4CC26A)}
+.pays{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+@media (max-width:480px){.pays{display:none}.trust{font-size:12px}.drawer-foot{gap:10px}}
+.pays span{border:1.5px solid var(--line);border-radius:7px;padding:3px 8px;font-size:11.5px;font-weight:700;color:var(--ink-2);background:#fff}
 /* pdf shop */
 .head-cta{white-space:nowrap;margin-left:6px}
 @media (max-width:640px){.head-cta{display:none}}
@@ -481,6 +494,7 @@ a.add{text-decoration:none;color:inherit;display:inline-block}
     <a class="logo" href="#top" aria-label="Les Petits Numéros, accueil"><span class="mark" aria-hidden="true"><i>1</i><i>2</i><i>3</i></span><span class="word">les petits numéros</span></a>
     <div class="head-r">
       <button class="ib" id="searchBtn" type="button" aria-label="Rechercher un coloriage"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
+      <button class="ib" id="cartBtn" type="button" aria-label="Ouvrir le panier" aria-controls="cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="count" id="cartCount" hidden>0</span></button>
       <a class="btn sm head-cta" href="#kits">Les packs</a>
     </div>
   </div>
@@ -532,10 +546,10 @@ a.add{text-decoration:none;color:inherit;display:inline-block}
         <div class="rail-ctl"><button class="rb" type="button" id="railPrev" aria-label="Packs précédents">←</button><button class="rb" type="button" id="railNext" aria-label="Packs suivants">→</button></div>
       </div>
       <div class="rail" id="rail">
-        <article class="card" data-id="pack1"><div class="card-media"><button class="card-img" type="button" data-open="pack1" style="--t:#FFF4CC" aria-label="Voir le pack 2-3 ans"></button><span class="badge">Dès 2 ans</span><button class="add" type="button" data-buy="pack1" aria-label="Acheter le pack 2-3 ans">Acheter</button></div><div><h3><button type="button" data-open="pack1">Pack 2-3 ans</button></h3><p class="tags">8 coloriages · grosses zones et pastilles</p><p class="cprice"><b>6,90&nbsp;€</b> · PDF à imprimer</p></div></article>
-        <article class="card" data-id="pack2"><div class="card-media"><button class="card-img" type="button" data-open="pack2" style="--t:#DFF5E6" aria-label="Voir le pack 4-5 ans"></button><button class="add" type="button" data-buy="pack2" aria-label="Acheter le pack 4-5 ans">Acheter</button></div><div><h3><button type="button" data-open="pack2">Pack 4-5 ans</button></h3><p class="tags">8 coloriages · on suit les numéros</p><p class="cprice"><b>6,90&nbsp;€</b> · PDF à imprimer</p></div></article>
-        <article class="card" data-id="pack3"><div class="card-media"><button class="card-img" type="button" data-open="pack3" style="--t:#E3F0FF" aria-label="Voir le pack 6-8 ans"></button><button class="add" type="button" data-buy="pack3" aria-label="Acheter le pack 6-8 ans">Acheter</button></div><div><h3><button type="button" data-open="pack3">Pack 6-8 ans</button></h3><p class="tags">8 coloriages · décor complet</p><p class="cprice"><b>6,90&nbsp;€</b> · PDF à imprimer</p></div></article>
-        <article class="card" data-id="bundle"><div class="card-media"><button class="card-img" type="button" data-open="bundle" style="--t:#EDE7FF" aria-label="Voir le pack complet"></button><span class="badge dark">3 packs en 1</span><button class="add" type="button" data-buy="bundle" aria-label="Acheter le pack complet">Acheter</button></div><div><h3><button type="button" data-open="bundle">Pack complet 3 niveaux</button></h3><p class="tags">24 coloriages · de 2 à 8 ans</p><p class="cprice"><b>12,90&nbsp;€</b> au lieu de 20,70&nbsp;€</p></div></article>
+        <article class="card" data-id="pack1"><div class="card-media"><button class="card-img" type="button" data-open="pack1" style="--t:#FFF4CC" aria-label="Voir le pack 2-3 ans"></button><span class="badge">Dès 2 ans</span><button class="add" type="button" data-buy="pack1" aria-label="Ajouter le pack 2-3 ans au panier">Ajouter</button></div><div><h3><button type="button" data-open="pack1">Pack 2-3 ans</button></h3><p class="tags">8 coloriages · grosses zones et pastilles</p><p class="cprice"><b>6,90&nbsp;€</b> · PDF à imprimer</p></div></article>
+        <article class="card" data-id="pack2"><div class="card-media"><button class="card-img" type="button" data-open="pack2" style="--t:#DFF5E6" aria-label="Voir le pack 4-5 ans"></button><button class="add" type="button" data-buy="pack2" aria-label="Ajouter le pack 4-5 ans au panier">Ajouter</button></div><div><h3><button type="button" data-open="pack2">Pack 4-5 ans</button></h3><p class="tags">8 coloriages · on suit les numéros</p><p class="cprice"><b>6,90&nbsp;€</b> · PDF à imprimer</p></div></article>
+        <article class="card" data-id="pack3"><div class="card-media"><button class="card-img" type="button" data-open="pack3" style="--t:#E3F0FF" aria-label="Voir le pack 6-8 ans"></button><button class="add" type="button" data-buy="pack3" aria-label="Ajouter le pack 6-8 ans au panier">Ajouter</button></div><div><h3><button type="button" data-open="pack3">Pack 6-8 ans</button></h3><p class="tags">8 coloriages · décor complet</p><p class="cprice"><b>6,90&nbsp;€</b> · PDF à imprimer</p></div></article>
+        <article class="card" data-id="bundle"><div class="card-media"><button class="card-img" type="button" data-open="bundle" style="--t:#EDE7FF" aria-label="Voir le pack complet"></button><span class="badge dark">3 packs en 1</span><button class="add" type="button" data-buy="bundle" aria-label="Ajouter le pack complet au panier">Ajouter</button></div><div><h3><button type="button" data-open="bundle">Pack complet 3 niveaux</button></h3><p class="tags">24 coloriages · de 2 à 8 ans</p><p class="cprice"><b>12,90&nbsp;€</b> au lieu de 20,70&nbsp;€</p></div></article>
         <article class="card" data-id="free"><div class="card-media"><button class="card-img" type="button" data-open="free" style="--t:#FFE5EE" aria-label="Voir les coloriages gratuits"></button><span class="badge hot">Gratuit</span><a class="add" href="/pdf/les-petits-numeros-coloriages-gratuits.pdf" download>Télécharger</a></div><div><h3><button type="button" data-open="free">3 coloriages gratuits</button></h3><p class="tags">Babou en 3 niveaux · sans inscription</p><p class="cprice"><b>Gratuit</b> · PDF à imprimer</p></div></article>
         <article class="card" data-id="photo"><div class="card-media"><button class="card-img" type="button" data-open="photo" style="--t:#E2F6F4" aria-label="Transformer une photo en coloriage"></button><span class="badge">Bientôt</span><a class="add" href="#photo">Essayer</a></div><div><h3><button type="button" data-open="photo">Cahier photo</button></h3><p class="tags">Vos photos en coloriages</p><p class="cprice">Essai gratuit avec une photo</p></div></article>
       </div>
@@ -655,7 +669,7 @@ a.add{text-decoration:none;color:inherit;display:inline-block}
         <h2 class="h2">Les 3 niveaux, 24 coloriages : il grandit avec lui</h2>
         <p class="lead2">Le même dessin devient plus détaillé quand votre enfant grandit. Commencez avec les grosses zones, passez au niveau suivant quand il est prêt.</p>
         <ul class="ticks"><li>Idéal pour les fratries et pour la classe</li><li>À imprimer autant de fois que vous voulez</li><li>Téléchargement immédiat</li></ul>
-        <div class="buy-row"><p class="pp"><b>12,90 €</b>au lieu de 20,70 €</p><button class="btn" type="button" data-buy="bundle">Acheter le pack complet</button></div>
+        <div class="buy-row"><p class="pp"><b>12,90 €</b>au lieu de 20,70 €</p><button class="btn" type="button" data-buy="bundle">Ajouter le pack complet</button></div>
       </div>
       <div>
         <ol class="club-steps" aria-label="Le même dessin en trois niveaux">
@@ -763,6 +777,12 @@ a.add{text-decoration:none;color:inherit;display:inline-block}
     </div>
   </div>
 </div>
+
+<aside class="drawer" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartTitle" inert>
+  <div class="drawer-head"><p class="dh" id="cartTitle">Votre panier</p><button class="x" type="button" data-close aria-label="Fermer le panier">×</button></div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
 
 <div class="search" id="search" role="dialog" aria-modal="true" aria-label="Rechercher un coloriage" inert>
   <div class="wrap search-in"><label class="vh" for="q">Rechercher un coloriage</label><input id="q" type="search" placeholder="4 ans, gratuit, pack complet…" autocomplete="off"><button class="x" type="button" data-close aria-label="Fermer la recherche">×</button></div>
@@ -1532,12 +1552,73 @@ a.add{text-decoration:none;color:inherit;display:inline-block}
   });
 
   /* ---------- aperçu produit et achat ---------- */
-  function buy(id) {
-    const url = PAY[id];
-    if (url) { location.href = url; return; }
-    if (openLayer && openLayer.id === 'qv') $('#qvPayNote').hidden = false;
-    toast('Le paiement en ligne ouvre dans quelques jours.');
+  /* ---------- panier ---------- */
+  const CK = 'lpn_cart';
+  const LIVE = /(^|\.)lespetitsnumeros\.fr$|^localhost$|^127\./.test(location.hostname);
+  let cartMem = [];
+  const PAID = ['pack1', 'pack2', 'pack3', 'bundle'];
+  function normCart(ids) {
+    ids = [...new Set(ids.filter(id => PAID.includes(id)))];
+    if (ids.includes('bundle')) return ['bundle'];
+    return ids;
   }
+  function getCart() { try { const v = JSON.parse(localStorage.getItem(CK) || '[]'); return normCart(Array.isArray(v) ? v : []); } catch (e) { return normCart(cartMem); } }
+  function setCart(ids) { cartMem = normCart(ids); try { localStorage.setItem(CK, JSON.stringify(cartMem)); } catch (e) {} renderCart(); }
+  function cartTotal(ids) { return ids.reduce((t, id) => t + byId(id).price, 0); }
+  function renderCart(bump) {
+    const ids = getCart(), n = ids.length, cnt = $('#cartCount');
+    cnt.hidden = !n; cnt.textContent = n;
+    if (bump) { cnt.classList.remove('bump'); void cnt.offsetWidth; cnt.classList.add('bump'); }
+    const body = $('#cartBody'), foot = $('#cartFoot');
+    if (!n) {
+      body.innerHTML = '<div class="empty"><p>Votre panier est vide.</p><a class="btn" href="#kits" data-close-cart>Voir les packs</a></div>';
+      foot.innerHTML = '';
+      return;
+    }
+    const packs = ids.filter(id => id !== 'bundle');
+    let html = ids.map(id => {
+      const p = byId(id);
+      const info = p.type === 'bundle' ? 'PDF A4 · 31 pages · 3 niveaux' : 'PDF A4 · 10 pages · ' + AGES[p.lvl].rep;
+      return `<div class="line"><span class="lt" style="--t:${p.tint}">${cover(p, 2, { labels: false })}</span><div><p class="ti">${p.name}</p><p class="su">${info}</p><div class="qrow"><button class="rm" type="button" data-rm="${id}">Retirer</button></div></div><p class="lp">${euro(p.price)}${p.was ? `<small>au lieu de ${euro(p.was)}</small>` : ''}</p></div>`;
+    }).join('');
+    if (packs.length) {
+      const b = byId('bundle'), cur = cartTotal(packs);
+      const msg = packs.length >= 2
+        ? `<b>Moins cher&nbsp;: le pack complet</b>Les 3 niveaux pour ${euro(b.price)} au lieu de ${euro(cur)} pour vos ${packs.length} packs.`
+        : `<b>Les 3 niveaux pour ${euro(b.price - cur)} de plus</b>Le pack complet à ${euro(b.price)} <s>${euro(b.was)}</s>, il grandit avec votre enfant.`;
+      html += `<div class="xsell"><span class="lt" style="--t:${b.tint}">${cover(b, 2, { labels: false })}</span><p>${msg}</p><button class="btn" type="button" data-swap>Choisir</button></div>`;
+    }
+    html += '<p class="cart-note">Téléchargement immédiat après le paiement&nbsp;: vous recevez vos PDF tout de suite, à imprimer autant de fois que vous voulez.</p>';
+    body.innerHTML = html;
+    foot.innerHTML = `<div class="sub-row"><span>Total<small>TTC, sans frais de livraison</small></span><span class="tot">${euro(cartTotal(ids))}</span></div>
+      <a class="btn big go-pay" href="/commande/" data-checkout><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Commander</a>
+      <ul class="trust"><li>Paiement sécurisé</li><li>Téléchargement immédiat</li><li>Satisfait ou remboursé 30 jours</li></ul>
+      <div class="pays" aria-label="Moyens de paiement"><span>CB</span><span>Visa</span><span>Mastercard</span><span>Apple Pay</span><span>Google Pay</span></div>`;
+  }
+  function openCart() { renderCart(); showLayer('cart'); }
+  function buy(id) {
+    const before = getCart();
+    let ids = before.concat(id);
+    let note = '';
+    if (id !== 'bundle' && ['pack1', 'pack2', 'pack3'].every(k => ids.includes(k))) { ids = ['bundle']; note = 'Vos 3 packs sont devenus le pack complet : vous économisez ' + euro(byId('bundle').was - byId('bundle').price) + '.'; }
+    setCart(ids);
+    renderCart(true);
+    openCart();
+    if (note) toast(note);
+  }
+  $('#cartBtn').addEventListener('click', openCart);
+  $('#cart').addEventListener('click', e => {
+    const rm = e.target.closest('[data-rm]');
+    if (rm) { setCart(getCart().filter(id => id !== rm.dataset.rm)); return; }
+    if (e.target.closest('[data-swap]')) { setCart(['bundle']); toast('Pack complet ajouté : les 3 niveaux, 24 coloriages.'); return; }
+    if (e.target.closest('[data-close-cart]')) { hideLayer(); return; }
+    const ck = e.target.closest('[data-checkout]');
+    if (ck && !LIVE) { e.preventDefault(); toast('Le paiement se fait sur lespetitsnumeros.fr'); }
+  });
+  window.addEventListener('storage', e => { if (e.key === CK) renderCart(); });
+  renderCart();
+  if (/[?&]panier\b/.test(location.search)) setTimeout(openCart, 300);
+
   function openQV(id) {
     const p = byId(id); if (!p) return;
     if (p.type === 'soon') { hideLayer(true); $('#photo').scrollIntoView({ behavior: RM ? 'auto' : 'smooth' }); return; }
@@ -1557,7 +1638,7 @@ a.add{text-decoration:none;color:inherit;display:inline-block}
     const b = $('#qvBuy');
     $('#qvPayNote').hidden = true;
     if (p.type === 'free') { b.textContent = 'Télécharger gratuitement'; b.href = FREE_PDF; b.setAttribute('download', ''); b.removeAttribute('data-buy'); }
-    else { b.textContent = `Acheter · ${euro(p.price)}`; b.href = '#kits'; b.removeAttribute('download'); b.dataset.buy = p.id; }
+    else { b.textContent = `Ajouter au panier · ${euro(p.price)}`; b.href = '#kits'; b.removeAttribute('download'); b.dataset.buy = p.id; }
     showLayer('qv');
   }
 

@@ -1,25 +1,37 @@
 User-agent: *
 Allow: /
 Disallow: /telechargement/
+Disallow: /commande/
+Disallow: /merci/
 
 User-agent: GPTBot
 Allow: /
 Disallow: /telechargement/
+Disallow: /commande/
+Disallow: /merci/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /telechargement/
+Disallow: /commande/
+Disallow: /merci/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /telechargement/
+Disallow: /commande/
+Disallow: /merci/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /telechargement/
+Disallow: /commande/
+Disallow: /merci/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /telechargement/
+Disallow: /commande/
+Disallow: /merci/
 
 Sitemap: https://lespetitsnumeros.fr/sitemap.xml
