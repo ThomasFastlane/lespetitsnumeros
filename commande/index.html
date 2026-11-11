@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Paiement sécurisé | Les Petits Numéros</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="preconnect" href="https://js.stripe.com">
+<link rel="preconnect" href="https://lpn-checkout.ralator.workers.dev">
+<style>
+:root{--ink:#1F2A55;--ink-2:#5B6690;--sun:#FFD23F;--sun-soft:#FFF4CC;--line:#E3E7F2;--mist:#F3F5FB;--mint:#4CC26A;--mint-soft:#DFF5E6;--coral:#FF5B3A;--pencil:#24223A;
+--display:"Grandstander","Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;--body:"Lexend",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--mist);color:var(--ink);font:16px/1.55 var(--body);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+[hidden]{display:none!important}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:8px}
+.wrap{width:min(1120px,100%);margin-inline:auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.top{background:#fff;border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:68px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:800 22px/1 var(--display);letter-spacing:-.01em;white-space:nowrap}
+.mark{display:inline-flex}.mark i{width:24px;height:24px;border-radius:50%;display:inline-grid;place-items:center;font:800 12.5px/1 var(--display);font-style:normal;color:#fff;border:2.2px solid var(--pencil);margin-left:-6px}
+.mark i:first-child{margin-left:0;background:var(--mint)}.mark i:nth-child(2){background:var(--sun);color:var(--pencil)}.mark i:nth-child(3){background:#3A86FF}
+.secure{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.secure svg,.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+@media (max-width:520px){.secure span{display:none}.logo{font-size:19px}}
+.steps{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;color:var(--ink-2);padding:18px 0 4px}
+.steps b{color:var(--ink)}
+.steps i{font-style:normal;opacity:.5}
+main{flex:1}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start;padding:14px 0 48px}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr);gap:16px}}
+.card{background:#fff;border-radius:24px;padding:clamp(18px,3.5vw,28px);box-shadow:0 1px 0 var(--line),0 20px 40px -32px rgba(31,42,85,.45)}
+.card+.card{margin-top:16px}
+h1{font:800 clamp(1.7rem,3.4vw,2.2rem)/1.08 var(--display);letter-spacing:-.02em}
+h2{font:800 20px/1.2 var(--display);display:flex;align-items:center;gap:10px}
+h2 .n{width:30px;height:30px;border-radius:50%;background:var(--sun);display:inline-grid;place-items:center;font-size:15px;border:2px solid var(--pencil);flex:none}
+h2 .n.ok{background:var(--mint);color:#fff}
+.sub{color:var(--ink-2);margin-top:6px;font-size:15px}
+.consent{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;align-items:start;margin-top:16px;padding:16px;border-radius:16px;background:var(--sun-soft);cursor:pointer;font-size:14.5px;line-height:1.5}
+.consent input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--ink);cursor:pointer}
+.consent.locked{background:var(--mint-soft);cursor:default}
+.consent small{display:block;color:var(--ink-2);font-size:13px;margin-top:6px}
+.pay-wait{display:grid;place-items:center;text-align:center;gap:10px;min-height:180px;color:var(--ink-2);font-size:14.5px;border:2px dashed var(--line);border-radius:18px;margin-top:16px;padding:20px}
+.pay-wait svg{width:34px;height:34px;color:var(--ink-2)}
+#checkout{margin-top:14px;min-height:0}
+.loading{display:grid;gap:12px;margin-top:16px}
+.sk{height:46px;border-radius:12px;background:linear-gradient(90deg,var(--mist),#fff,var(--mist));background-size:200% 100%;animation:sk 1.2s linear infinite}
+.sk.s{width:60%}.sk.t{height:120px}
+@keyframes sk{to{background-position:-200% 0}}
+.err{margin-top:16px;padding:14px 16px;border-radius:14px;background:#FFE7E2;color:#7A1F12;font-size:14.5px}
+.err button{margin-top:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;background:var(--ink);color:#fff;padding:14px 24px;font:700 16px/1 var(--display);text-decoration:none;cursor:pointer;box-shadow:0 4px 0 #0D1435}
+.btn:hover{transform:translateY(-1px)}
+/* récap */
+.sum{position:sticky;top:20px}
+@media (max-width:900px){.sum{position:static;order:-1}}
+.sum-toggle{display:none}
+@media (max-width:900px){
+  .sum-toggle{display:flex;width:100%;justify-content:space-between;align-items:center;border:0;background:none;padding:0;font:600 15px var(--body);color:var(--ink);cursor:pointer}
+  .sum-toggle .tt{font:800 20px/1 var(--display)}
+  .sum-toggle .chev{transition:transform .2s}
+  .sum.closed .sum-body{display:none}
+  .sum.closed .sum-toggle .chev{transform:rotate(-90deg)}
+  .sum-h{display:none}
+}
+.sum-h{font:800 20px/1.2 var(--display)}
+.items{list-style:none;padding:0;margin-top:16px;display:grid;gap:14px}
+.it{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center}
+.it img{width:64px;height:64px;border-radius:14px;display:block;object-fit:cover;background:var(--mist)}
+.it b{display:block;font-weight:700;line-height:1.3}
+.it small{display:block;color:var(--ink-2);font-size:13px;line-height:1.35}
+.it .pr{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.it .pr s{display:block;font-weight:500;font-size:12px;color:var(--ink-2)}
+.edit{display:inline-block;margin-top:12px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.rows{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:grid;gap:8px;font-size:14.5px}
+.row{display:flex;justify-content:space-between;gap:10px}
+.row.save{color:#1E7B3A;font-weight:600}
+.row.tot{font-weight:700;font-size:16px;align-items:baseline;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.row.tot span:last-child{font:800 28px/1 var(--display);font-variant-numeric:tabular-nums}
+.row small{color:var(--ink-2);font-weight:500;font-size:12.5px;display:block}
+.reas{list-style:none;padding:0;margin-top:18px;display:grid;gap:10px;font-size:13.5px}
+.reas li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:center}
+.reas .ri{width:34px;height:34px;border-radius:50%;background:var(--mist);display:grid;place-items:center;color:var(--ink)}
+.reas b{display:block;font-size:14px}
+.reas span{color:var(--ink-2)}
+.help{margin-top:16px;font-size:13px;color:var(--ink-2)}
+.empty{text-align:center;padding:56px 20px}
+.empty p{color:var(--ink-2);margin:10px 0 22px}
+.foot{padding:20px 0 calc(24px + env(safe-area-inset-bottom,0px));font-size:13px;color:var(--ink-2)}
+.foot-in{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center}
+.foot a{text-decoration:none}.foot a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/" aria-label="Les Petits Numéros, retour à la boutique"><span class="mark" aria-hidden="true"><i>1</i><i>2</i><i>3</i></span>les petits numéros</a>
+    <p class="secure"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Paiement 100 % sécurisé</span></p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="steps" aria-label="Étapes"><a href="/?panier=1">Panier</a><i>›</i><b>Paiement</b><i>›</i><span>Téléchargement</span></p>
+
+    <section class="card empty" id="empty" hidden>
+      <h1>Votre panier est vide</h1>
+      <p>Choisissez un pack de coloriages pour continuer.</p>
+      <a class="btn" href="/#kits">Voir les packs</a>
+    </section>
+
+    <div class="grid" id="grid" hidden>
+      <div>
+        <section class="card">
+          <h1>Finaliser ma commande</h1>
+          <p class="sub">Vos PDF sont disponibles dès la fin du paiement, sur la page suivante.</p>
+          <h2 style="margin-top:22px"><span class="n" id="n1">1</span>Accès immédiat à vos coloriages</h2>
+          <label class="consent" id="consentBox">
+            <input type="checkbox" id="consent">
+            <span>Je demande l'accès immédiat aux PDF et je renonce expressément à mon droit de rétractation pour ce contenu numérique. J'accepte les <a href="/cgv.html" target="_blank" rel="noopener">conditions générales de vente</a>.
+              <small>Obligatoire pour les contenus téléchargeables (art. L221-28 13° du Code de la consommation). Notre garantie satisfait ou remboursé 30 jours reste valable.</small></span>
+          </label>
+        </section>
+
+        <section class="card" id="payCard">
+          <h2><span class="n">2</span>Paiement</h2>
+          <div class="pay-wait" id="payWait">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/></svg>
+            <span>Cochez la case ci-dessus pour afficher le paiement.<br>Carte bancaire, Apple Pay, Google Pay.</span>
+          </div>
+          <div class="loading" id="loading" hidden aria-live="polite" aria-label="Chargement du paiement"><div class="sk s"></div><div class="sk"></div><div class="sk t"></div><div class="sk"></div></div>
+          <div class="err" id="err" hidden role="alert"><p id="errMsg"></p><button class="btn" type="button" id="retry">Réessayer</button></div>
+          <div id="checkout"></div>
+        </section>
+      </div>
+
+      <aside class="card sum closed" id="sum" aria-label="Récapitulatif de la commande">
+        <button class="sum-toggle" type="button" id="sumToggle" aria-expanded="false"><span><svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:-4px"><path d="M6 9l6 6 6-6"/></svg> Récapitulatif</span><span class="tt" id="totM"></span></button>
+        <div class="sum-body">
+          <p class="sum-h">Récapitulatif</p>
+          <ul class="items" id="items"></ul>
+          <a class="edit" href="/?panier=1">Modifier le panier</a>
+          <div class="rows" id="rows"></div>
+          <ul class="reas">
+            <li><span class="ri"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg></span><span><b>Téléchargement immédiat</b>PDF A4 à imprimer chez vous</span></li>
+            <li><span class="ri"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span><b>Paiement sécurisé</b>Chiffré et traité par Stripe</span></li>
+            <li><span class="ri"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg></span><span><b>Satisfait ou remboursé</b>Pendant 30 jours, voir les CGV</span></li>
+          </ul>
+          <p class="help">Une question ? <a href="mailto:contact@lespetitsnumeros.fr">contact@lespetitsnumeros.fr</a></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="foot"><div class="wrap foot-in"><a href="/cgv.html">CGV</a><a href="/mentions-legales.html">Mentions légales</a><a href="/confidentialite.html">Confidentialité</a><span>© 2026 Les Petits Numéros</span></div></footer>
+
+<script>
+(function () {
+  'use strict';
+  const API = 'https://lpn-checkout.ralator.workers.dev';
+  const CK = 'lpn_cart';
+  const P = {
+    pack1: { name: 'Pack 2-3 ans', info: '8 coloriages · PDF A4, 10 pages', price: 6.9, img: '/img/pack-2-3-ans.png' },
+    pack2: { name: 'Pack 4-5 ans', info: '8 coloriages · PDF A4, 10 pages', price: 6.9, img: '/img/pack-4-5-ans.png' },
+    pack3: { name: 'Pack 6-8 ans', info: '8 coloriages · PDF A4, 10 pages', price: 6.9, img: '/img/pack-6-8-ans.png' },
+    bundle: { name: 'Pack complet 3 niveaux', info: '24 coloriages · PDF A4, 31 pages', price: 12.9, was: 20.7, img: '/img/pack-complet.png' }
+  };
+  const $ = s => document.querySelector(s);
+  const euro = v => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(v);
+  function norm(ids) {
+    ids = [...new Set((Array.isArray(ids) ? ids : []).filter(id => P[id]))];
+    if (ids.includes('bundle') || ['pack1', 'pack2', 'pack3'].every(k => ids.includes(k))) return ['bundle'];
+    return ids;
+  }
+  let items = [];
+  try { items = norm(JSON.parse(localStorage.getItem(CK) || '[]')); } catch (e) { items = []; }
+
+  function render() {
+    if (!items.length) { $('#empty').hidden = false; $('#grid').hidden = true; return; }
+    $('#grid').hidden = false; $('#empty').hidden = true;
+    $('#items').innerHTML = items.map(id => {
+      const p = P[id];
+      return `<li class="it"><img src="${p.img}" alt="" width="64" height="64"><span><b>${p.name}</b><small>${p.info}</small></span><span class="pr">${euro(p.price)}${p.was ? `<s>${euro(p.was)}</s>` : ''}</span></li>`;
+    }).join('');
+    const total = items.reduce((t, id) => t + P[id].price, 0);
+    const save = items.reduce((t, id) => t + (P[id].was ? P[id].was - P[id].price : 0), 0);
+    $('#rows').innerHTML =
+      `<div class="row"><span>Sous-total</span><span>${euro(total + save)}</span></div>` +
+      (save ? `<div class="row save"><span>Économie pack complet</span><span>−${euro(save)}</span></div>` : '') +
+      `<div class="row"><span>Livraison</span><span>Offerte, par téléchargement</span></div>` +
+      `<div class="row tot"><span>Total<small>TTC</small></span><span>${euro(total)}</span></div>`;
+    $('#totM').textContent = euro(total);
+  }
+  render();
+
+  $('#sumToggle').addEventListener('click', () => {
+    const s = $('#sum'), closed = s.classList.toggle('closed');
+    $('#sumToggle').setAttribute('aria-expanded', String(!closed));
+  });
+
+  let stripeLoad = null;
+  function loadStripe() {
+    if (window.Stripe) return Promise.resolve();
+    if (!stripeLoad) stripeLoad = new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://js.stripe.com/v3/'; s.onload = res; s.onerror = () => rej(new Error('Le module de paiement ne se charge pas. Vérifiez votre connexion.'));
+      document.head.appendChild(s);
+    });
+    return stripeLoad;
+  }
+
+  let busy = false, mounted = false;
+  async function startPayment() {
+    if (busy || mounted) return;
+    busy = true;
+    $('#payWait').hidden = true; $('#err').hidden = true; $('#loading').hidden = false;
+    try {
+      const pStripe = loadStripe();
+      const r = await fetch(API + '/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items, waiver: true }) });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok || !d.clientSecret) throw new Error(d.message || 'Le paiement est momentanément indisponible.');
+      if (Array.isArray(d.items) && d.items.join() !== items.join()) { items = norm(d.items); try { localStorage.setItem(CK, JSON.stringify(items)); } catch (e) {} render(); }
+      await pStripe;
+      const stripe = window.Stripe(d.publishableKey, { locale: 'fr' });
+      const checkout = await stripe.initEmbeddedCheckout({ fetchClientSecret: () => Promise.resolve(d.clientSecret) });
+      $('#loading').hidden = true;
+      checkout.mount('#checkout');
+      mounted = true;
+      $('#consent').disabled = true; $('#consentBox').classList.add('locked');
+      const n1 = $('#n1'); n1.textContent = '✓'; n1.classList.add('ok');
+    } catch (e) {
+      $('#loading').hidden = true;
+      $('#errMsg').textContent = (e && e.message ? e.message : 'Une erreur est survenue.') + ' Si le problème continue, écrivez-nous à contact@lespetitsnumeros.fr.';
+      $('#err').hidden = false;
+    } finally { busy = false; }
+  }
+  $('#consent').addEventListener('change', e => {
+    if (e.target.checked) startPayment();
+    else if (!mounted) { $('#payWait').hidden = false; $('#err').hidden = true; }
+  });
+  $('#retry').addEventListener('click', () => { if ($('#consent').checked) startPayment(); });
+  if (items.length) loadStripe().catch(() => {});
+})();
+</script>
+</body>
+</html>
