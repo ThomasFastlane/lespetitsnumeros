@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://lespetitsnumeros.fr/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-2-3-ans.png</image:loc></image:image>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-4-5-ans.png</image:loc></image:image>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-6-8-ans.png</image:loc></image:image>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-complet.png</image:loc></image:image>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/coloriages-gratuits.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://lespetitsnumeros.fr/pdf/les-petits-numeros-coloriages-gratuits.pdf</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://lespetitsnumeros.fr/cgv.html</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://lespetitsnumeros.fr/mentions-legales.html</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://lespetitsnumeros.fr/confidentialite.html</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+</urlset>
