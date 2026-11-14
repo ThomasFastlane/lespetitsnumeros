@@ -20,4 +20,8 @@
 
 ## Pages
 - [Accueil et boutique](https://lespetitsnumeros.fr/)
+- [Coloriage par numéros 2-3 ans](https://lespetitsnumeros.fr/coloriage-par-numeros-2-3-ans/)
+- [Coloriage par numéros 4-5 ans](https://lespetitsnumeros.fr/coloriage-par-numeros-4-5-ans/)
+- [Coloriage par numéros 6-8 ans](https://lespetitsnumeros.fr/coloriage-par-numeros-6-8-ans/)
+- [Coloriages par numéros gratuits](https://lespetitsnumeros.fr/coloriages-par-numeros-gratuits/)
 - [Conditions générales de vente](https://lespetitsnumeros.fr/cgv.html)

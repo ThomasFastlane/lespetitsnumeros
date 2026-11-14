@@ -2,11 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://lespetitsnumeros.fr/</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-2-3-ans.png</image:loc></image:image>
     <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-4-5-ans.png</image:loc></image:image>
     <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-6-8-ans.png</image:loc></image:image>
     <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-complet.png</image:loc></image:image>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/coloriages-gratuits.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://lespetitsnumeros.fr/coloriage-par-numeros-2-3-ans/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-2-3-ans.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://lespetitsnumeros.fr/coloriage-par-numeros-4-5-ans/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-4-5-ans.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://lespetitsnumeros.fr/coloriage-par-numeros-6-8-ans/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image><image:loc>https://lespetitsnumeros.fr/img/pack-6-8-ans.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://lespetitsnumeros.fr/coloriages-par-numeros-gratuits/</loc>
+    <lastmod>2026-11-14</lastmod>
     <image:image><image:loc>https://lespetitsnumeros.fr/img/coloriages-gratuits.png</image:loc></image:image>
   </url>
   <url>
